@@ -103,8 +103,11 @@ if button:
     # st.write(f'BMI는 :blue[{target_bmi:.2f}] 이입니다 :sparkles:')
 
     # 버튼 누르고 대기하게 만들기 [주의] 데이터 입력했을때 안꼬일까?
+    # 연도별로 경량된 데이터 로드
     import pandas as pd
-    tmp = pd.read_csv('shortened_data_2022.csv')
+    tmp = pd.read_csv(f'shortened_data_{input_year}.csv')
+
+    # 데이터셋의 BMI 계산
     tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
     
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
