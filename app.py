@@ -90,4 +90,4 @@ if button:
     percentile_value = tmp['BMI'].quantile(q=0.5, interpolation='linear')  # 중간값을 계산합니다.
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
 
-    st.write(f"{target_bmi}는 데이터셋에서 약 {percentile:.2f} 퍼센트에 해당합니다.")
+    st.write(f":blue[{target_bmi:.2f}]는 데이터셋에서 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
