@@ -11,6 +11,17 @@ with col_1:
     # 연도 - 라디오 버튼
     input_year = st.radio("확인 년도를 선택하세요.",
             ('2018', '2019', '2020', '2021', '2022'))
+    if input_year == '2018':
+        input_year = 2018
+    elif input_year == '2019':
+        input_year = 2019
+    elif input_year == '2020':
+        input_year = 2020
+    elif input_year == '2021':
+        input_year = 2021
+    else:
+        input_year = 2022
+
 with col_2:
     # # 성별 - 라디오 버튼
     # input_sex = st.radio(
@@ -20,6 +31,10 @@ with col_2:
     input_sex = st.radio(
         '확인할 성별을 확인하세요.',
         ('남성', '여성'))
+    if input_sex == '남성':
+        input_sex = 1
+    elif input_sex == '여성':
+        input_sex = 2
 
 
 
@@ -67,19 +82,25 @@ if button:
     st.caption("처리에 시간이 걸리니 기다려 주세요...")
     target_bmi = input_weight / ( input_height / 100 ) ** 2
     # bmi 구간별로 색 다르게
-    # if bmi<18.5:
-    #     #저체중
-    # elif 18.5<=bmi and bmi<25:
-    #     #정상
-    # elif 25<=bmi and bmi<30:
-    #     #과체중
-    # elif 30<=bmi and bmi<35:
-    #     #비만1
-    # elif 35<=bmi and bmi<40:
-    #     #비만2
-    # else:
-    #     #비만3
-    st.write(f'BMI는 :blue[{target_bmi:.2f}] 이입니다 :sparkles:')
+    if target_bmi<18.5:
+        #저체중
+        st.write(f'BMI는 :blue[{target_bmi:.2f} 저체중]입니다 :sparkles:')
+    elif 18.5<=target_bmi and target_bmi<25:
+        #정상
+        st.write(f'BMI는 :green[{target_bmi:.2f} 정상]입니다 :sparkles:')
+    elif 25<=target_bmi and target_bmi<30:
+        #과체중
+        st.write(f'BMI는 :orange[{target_bmi:.2f} 과체중]입니다 :sparkles:')
+    elif 30<=target_bmi and target_bmi<35:
+        #비만1
+        st.write(f'BMI는 :red[{target_bmi:.2f} 비만1]입니다 :sparkles:')
+    elif 35<=target_bmi and target_bmi<40:
+        #비만2
+        st.write(f'BMI는 :red[{target_bmi:.2f} 비만2]입니다 :sparkles:')
+    else:
+        #비만3
+        st.write(f'BMI는 :red[{target_bmi:.2f} 비만3]입니다 :sparkles:')
+    # st.write(f'BMI는 :blue[{target_bmi:.2f}] 이입니다 :sparkles:')
 
     # 버튼 누르고 대기하게 만들기 [주의] 데이터 입력했을때 안꼬일까?
     import pandas as pd
