@@ -24,18 +24,13 @@ with col_1:
 
 with col_2:
     # # 성별 - 라디오 버튼
-    # input_sex = st.radio(
-    #     '확인할 성별을 확인하세요.',
-    #     ('남성', '여성', '무관')
-     # 성별 - 라디오 버튼
     input_sex = st.radio(
         '확인할 성별을 확인하세요.',
-        ('남성', '여성'))
-    if input_sex == '남성':
-        input_sex = 1
-    elif input_sex == '여성':
-        input_sex = 2
-
+        ('남성', '여성', '전체데이터에서 보기'))
+     # 성별 - 라디오 버튼
+    # input_sex = st.radio(
+    #     '확인할 성별을 확인하세요.',
+    #     ('남성', '여성'))
 
 
 # 하단은 탭으로 구분
@@ -106,6 +101,12 @@ if button:
     # 연도별로 경량된 데이터 로드
     import pandas as pd
     tmp = pd.read_csv(f'shortened_data_{input_year}.csv')
+    # 성별필터링
+    # 전체 데이터일 경우에 필터링 안함
+    if input_sex == "남성":
+        tmp = tmp[tmp['sex']==1]
+    elif input_sex == "여성":
+        tmp = tmp[tmp['sex']==2]
 
     # 데이터셋의 BMI 계산
     tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
