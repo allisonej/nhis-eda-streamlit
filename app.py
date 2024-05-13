@@ -2,9 +2,6 @@
 
 import streamlit as st
 
-def main():
-    st.write("# Welcome to Streamlit! 👋")
-
 st.title("BMI(Body Mess Index, 체질량지수) 랭크 확인하기")
 st.write("이 페이지에서는 코로나 기준으로 건강의 변화추이를 보기위해 연도별로 데이터를 확인합니다.")
 
@@ -65,7 +62,9 @@ with col2:
 # 완료 버튼 클릭
 button = st.button('BMI를 체크합니다.')
 
+
 if button:
+    st.caption("처리에 시간이 걸리니 기다려 주세요...")
     target_bmi = input_weight / ( input_height / 100 ) ** 2
     # bmi 구간별로 색 다르게
     # if bmi<18.5:
@@ -85,29 +84,10 @@ if button:
     # 버튼 누르고 대기하게 만들기 [주의] 데이터 입력했을때 안꼬일까?
     import pandas as pd
     tmp = pd.read_csv('shortened_data_2022.csv')
-    
-    # tmp = tmp[tmp['기준년도']==input_year][['신장(5cm단위)', '체중(5kg단위)']]
-    # tmp = tmp[['신장(5cm단위)', '체중(5kg단위)']]
-    
-    # tmp = tmp[tmp['기준년도']==input_year][['시도코드', '성별', '연령대코드(5세단위)', '신장(5cm단위)', '체중(5kg단위)']]
-    # tmp = tmp['시도코드', '성별', '연령대코드(5세단위)', '신장(5cm단위)', '체중(5kg단위)']
-    # tmp['BMI'] = tmp['체중(5kg단위)'] / ( tmp['신장(5cm단위)'] / 100 ) ** 2
     tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
     
-
-    # tmp = tmp[tmp['기준년도'] == input_year]
-
-    # value_to_find = 23.88
-
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
     percentile_value = tmp['BMI'].quantile(q=0.5, interpolation='linear')  # 중간값을 계산합니다.
-    # st.table(tmp)
-    st.table(tmp.head())
-    import numpy as np
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
-    # percentile = ( tmp['BMI'].dropna() < target_bmi ).sum() / len( tmp.dropna() ) * 100
 
     st.write(f"{target_bmi}는 데이터셋에서 약 {percentile:.2f} 퍼센트에 해당합니다.")
-
-if __name__ == "__main__":
-    main()
