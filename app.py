@@ -3,7 +3,7 @@
 import streamlit as st
 
 st.title("BMI(Body Mess Index, 체질량지수) 랭크 확인하기")
-st.write("이 페이지에서는 코로나 기준으로 건강의 변화추이를 보기위해 연도별로 데이터를 확인합니다.")
+st.write("이 페이지에서는 개인 BMI의 위치를 확인합니다.")
 
 col_1, col_2 = st.columns(2)
 
