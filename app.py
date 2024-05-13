@@ -36,7 +36,7 @@ input_age = st.number_input(
     value=30,
 )
 input_age = input_age//5+1 #27세면 나이구간 6 (25~30)
-st.write('당신이 입력하신 :red[나이대]는:  ', input_age*5-5, '~', input_age*5)
+st.write('당신이 입력하신 :red[나이대]는:  ', input_age*5-5, '~', input_age*5-1)
 
 col1, col2 = st.columns(2)
 
@@ -84,11 +84,16 @@ if button:
 
     # 버튼 누르고 대기하게 만들기 [주의] 데이터 입력했을때 안꼬일까?
     import pandas as pd
-    tmp = pd.read_csv('merged_data.csv', encoding='cp949')
-    tmp = tmp[tmp['기준년도']==input_year][['신장(5cm단위)', '체중(5kg단위)']]
+    tmp = pd.read_csv('shortened_data_2022.csv')
+    
+    # tmp = tmp[tmp['기준년도']==input_year][['신장(5cm단위)', '체중(5kg단위)']]
+    # tmp = tmp[['신장(5cm단위)', '체중(5kg단위)']]
+    
     # tmp = tmp[tmp['기준년도']==input_year][['시도코드', '성별', '연령대코드(5세단위)', '신장(5cm단위)', '체중(5kg단위)']]
     # tmp = tmp['시도코드', '성별', '연령대코드(5세단위)', '신장(5cm단위)', '체중(5kg단위)']
-    tmp['BMI'] = tmp['체중(5kg단위)'] / ( tmp['신장(5cm단위)'] / 100 ) ** 2
+    # tmp['BMI'] = tmp['체중(5kg단위)'] / ( tmp['신장(5cm단위)'] / 100 ) ** 2
+    tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
+    
 
     # tmp = tmp[tmp['기준년도'] == input_year]
 
@@ -96,7 +101,9 @@ if button:
 
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
     percentile_value = tmp['BMI'].quantile(q=0.5, interpolation='linear')  # 중간값을 계산합니다.
-    st.table(tmp)
+    # st.table(tmp)
+    st.table(tmp.head())
+    import numpy as np
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
     # percentile = ( tmp['BMI'].dropna() < target_bmi ).sum() / len( tmp.dropna() ) * 100
 
