@@ -175,3 +175,4 @@ if button:
         ax.legend()
         ax.text(target_bmi, len(tmp)/(max(tmp['BMI'])-min(tmp['BMI'])), f'Your BMI: {target_bmi:.2f}', fontsize=10, ha='center', va='top')
         st.pyplot(fig)
+        st.write(tmp['BMI'].describe())
