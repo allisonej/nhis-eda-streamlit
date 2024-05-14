@@ -135,20 +135,21 @@ if button:
         st.write("## Height vs. Weight")
         # 플롯 그리기
         tab1_plot = st.caption("처리에 시간이 걸리니 기다려 주세요...")
+        
+        fig, ax = plt.subplots()
         sns.scatterplot(x='height', y='weight', data=tmp, label='Data Points')
-        plt.scatter(input_height, input_weight, color='red', label='Your Data')
+        ax.scatter(input_height, input_weight, color='red', label='Your Data')
 
         # 사용자 BMI 표시
-        plt.text(input_height + 1, input_weight - 5, f'BMI: {target_bmi:.2f}', fontsize=10, ha='left')
+        ax.text(input_height + 1, input_weight - 5, f'BMI: {target_bmi:.2f}', fontsize=10, ha='left')
 
-        plt.xlabel('Height (5cm)')
-        plt.ylabel('Weight (5kg)')
-        plt.title('Height vs. Weight')
+        ax.set_xlabel('Height (5cm)')
+        ax.set_ylabel('Weight (5kg)')
+        ax.set_title('Height vs. Weight')
 
-        plt.legend()
-        plt.grid(True)
-        tab1_plot = ""
-        st.pyplot()
+        ax.legend()
+        ax.grid(True)
+        st.pyplot(fig)
 
         tab1_col1, tab1_col2 = st.columns(2)
         with tab1_col1:
@@ -159,11 +160,15 @@ if button:
     with tab2:
         st.write("## BMI Distribution")
         # 플롯 그리기
-        sns.histplot(tmp['BMI'], kde=True)
-        plt.axvline(target_bmi, color='red', linestyle='--', label='Your BMI')
-        plt.xlabel('BMI')
-        plt.ylabel('Frequency')
-        plt.title('BMI Distribution')
-        plt.legend()
-        plt.text(target_bmi, len(tmp)/(max(tmp['BMI'])-min(tmp['BMI'])), f'Your BMI: {target_bmi:.2f}', fontsize=10, ha='center', va='top')
-        st.pyplot()
+        fig, ax = plt.subplots()
+        # >>> ax.scatter([1, 2, 3], [1, 2, 3])
+        # >>>    ... other plotting actions ...
+        # >>> st.pyplot(fig)
+        sns.histplot(tmp['BMI'], kde=True, ax=ax)
+        ax.axvline(target_bmi, color='red', linestyle='--', label='Your BMI')
+        ax.set_xlabel('BMI')
+        ax.set_ylabel('Frequency')
+        ax.set_title('BMI Distribution')
+        ax.legend()
+        ax.text(target_bmi, len(tmp)/(max(tmp['BMI'])-min(tmp['BMI'])), f'Your BMI: {target_bmi:.2f}', fontsize=10, ha='center', va='top')
+        st.pyplot(fig)
