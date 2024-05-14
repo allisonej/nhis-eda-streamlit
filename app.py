@@ -31,13 +31,6 @@ with col_2:
     input_sex = st.radio(
         '확인할 성별을 확인하세요.',
         ('남성', '여성', '전체데이터에서 보기'))
-     # 성별 - 라디오 버튼
-    # input_sex = st.radio(
-    #     '확인할 성별을 확인하세요.',
-    #     ('남성', '여성'))
-
-
-# 하단은 탭으로 구분
 
 # 나이 - 숫자 입력
 input_age = st.number_input(
@@ -117,7 +110,6 @@ if button:
     tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
 
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
-    percentile_value = tmp['BMI'].quantile(q=0.5, interpolation='linear')  # 중간값을 계산합니다.
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
 
     st.write(f":blue[{target_bmi:.2f}]는 데이터셋에서 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
@@ -125,8 +117,8 @@ if button:
     # 결과탭; 즉, BUTTON누른 후 유효
     # 연도, 나이, 성별, 
     # 탭1 : 키, 체중
-    # 탭3 : bmi
-# 첫 번째 탭: 키와 체중 그래프
+    # 탭2 : bmi
+    # 첫 번째 탭: 키와 체중 그래프
 
     # 탭을 추가
     tab1, tab2 = st.tabs(['Height vs. Weight', 'BMI Distribution'])
@@ -157,13 +149,12 @@ if button:
         with tab1_col2:
             st.write(tmp['weight'].describe())
 
+    # 두 번째 탭: BMI 그래프
+
     with tab2:
         st.write("## BMI Distribution")
         # 플롯 그리기
         fig, ax = plt.subplots()
-        # >>> ax.scatter([1, 2, 3], [1, 2, 3])
-        # >>>    ... other plotting actions ...
-        # >>> st.pyplot(fig)
         sns.histplot(tmp['BMI'], kde=True, ax=ax)
         ax.axvline(target_bmi, color='red', linestyle='--', label='Your BMI')
         ax.set_xlabel('BMI')
