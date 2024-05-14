@@ -4,7 +4,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title("BMI(Body Mess Index, 체질량지수) 랭크 확인하기")
 st.write("이 페이지에서는 개인 BMI의 위치를 확인합니다.")
