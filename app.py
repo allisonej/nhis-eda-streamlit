@@ -138,7 +138,7 @@ if button:
     with tab1:
         st.write("## Height vs. Weight")
         # 플롯 그리기
-        tab1_plot = st.caption("처리에 시간이 걸리니 기다려 주세요...")
+        # tab1_plot = st.caption("처리에 시간이 걸리니 기다려 주세요...")
         
         fig, ax = plt.subplots()
         sns.scatterplot(x='height', y='weight', data=tmp, label='Data Points')
