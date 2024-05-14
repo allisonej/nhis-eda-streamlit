@@ -114,7 +114,8 @@ if button:
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
 
-    st.write(f":blue[{target_bmi:.2f}]는 데이터셋에서 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
+    st.write(f":blue[{target_bmi:.2f}]는 데이터셋에서 상위 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
+    st.caption("BMI가 낮을수록 건강상 이점이 있을 가능성이 높으므로 상위로 표현하였습니다.")
 
     # 결과탭; 즉, BUTTON누른 후 유효
     # 연도, 나이, 성별, 
