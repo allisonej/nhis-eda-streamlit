@@ -39,8 +39,11 @@ input_age = st.number_input(
     max_value=90, 
     value=30,
 )
-input_age = input_age//5+1 #27세면 나이구간 6 (25~30)
-st.write('당신이 입력하신 :red[나이대]는:  ', input_age*5-5, '~', input_age*5-1)
+input_age = input_age//5+1 #27세면 나이구간 6 (25~30), 코드구간: 5~18 (20~90)
+if input_age>=18:
+    st.write('당신이 입력하신 :red[나이대]는:  ', input_age*5-5, '~')
+else:
+    st.write('당신이 입력하신 :red[나이대]는:  ', input_age*5-5, '~', input_age*5-1)
 
 col1, col2 = st.columns(2)
 
@@ -99,6 +102,12 @@ if button:
 
     pd.option_context('mode.use_inf_as_na', True)
     tmp = pd.read_csv(f'shortened_data_{input_year}.csv')
+    # 연령대 코드 필터링
+    # input_age
+    tmp = tmp[tmp['age']==input_age][['height', 'weight', 'sex']]
+    # st.table(tmp.head()) #필터링 확인 ok
+
+
     # 성별필터링
     # 전체 데이터일 경우에 필터링 안함
     if input_sex == "남성":
@@ -114,7 +123,7 @@ if button:
     # 찾고자 하는 값이 몇 퍼센트에 해당하는지 계산
     percentile = ( tmp['BMI'] < target_bmi ).sum() / len( tmp ) * 100
 
-    st.write(f":blue[{target_bmi:.2f}]는 데이터셋에서 상위 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
+    st.write(f":blue[{target_bmi:.2f}]는 나이, 성별이 고려된 데이터셋에서 상위 약 :blue[{percentile:.2f}] 퍼센트에 해당합니다.")
     st.caption("BMI가 낮을수록 건강상 이점이 있을 가능성이 높으므로 상위로 표현하였습니다.")
 
     # 결과탭; 즉, BUTTON누른 후 유효
