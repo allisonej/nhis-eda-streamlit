@@ -96,6 +96,8 @@ if button:
     # 버튼 누르고 대기하게 만들기 [주의] 데이터 입력했을때 안꼬일까?
     # 연도별로 경량된 데이터 로드
     import pandas as pd
+
+    pd.option_context('mode.use_inf_as_na', True)
     tmp = pd.read_csv(f'shortened_data_{input_year}.csv')
     # 성별필터링
     # 전체 데이터일 경우에 필터링 안함
