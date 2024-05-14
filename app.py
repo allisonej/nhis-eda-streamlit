@@ -115,7 +115,7 @@ if button:
     elif input_sex == "여성":
         tmp = tmp[tmp['sex']==2][['height', 'weight']]
     else:
-        tmp = tmp['height', 'weight']
+        tmp = tmp[['height', 'weight']]
     
     # 데이터셋의 BMI 계산
     tmp['BMI'] = tmp['weight'] / ( tmp['height'] / 100 ) ** 2
